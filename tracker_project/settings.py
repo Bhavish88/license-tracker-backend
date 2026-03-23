@@ -225,5 +225,9 @@ LOGGING = {
         },
     },
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://license-tracker-backend-production.up.railway.app"
+]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 NOTIFICATION_DAYS_BEFORE = [30, 7, 1]
