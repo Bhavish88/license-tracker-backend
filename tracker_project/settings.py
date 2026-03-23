@@ -27,9 +27,9 @@ SITE_ID = 1
 SECRET_KEY = 'django-insecure-xy*&0kr12nro48^^c$c2lc2q)db(-nid@=w&5j6vv!v-9fb$bm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "License & Certificate Tracker API",
@@ -98,14 +98,14 @@ CORS_ALLOW_ALL_ORIGINS = True
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-      'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': os.getenv('DB_NAME','license_tracker_db'),
-    'USER': os.getenv('DB_USER','root'),
-    'PASSWORD': os.getenv('DB_PASS',''),
-    'HOST': os.getenv('DB_HOST','127.0.0.1'),
-    'PORT': os.getenv('DB_PORT','3306'),
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('MYSQLDATABASE'),
+        'USER': os.environ.get('MYSQLUSER'),
+        'PASSWORD': os.environ.get('MYSQLPASSWORD'),
+        'HOST': os.environ.get('MYSQLHOST'),
+        'PORT': os.environ.get('MYSQLPORT'),
+    }
 }
 
 
@@ -148,7 +148,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 PROTECTED_MEDIA_ROOT = BASE_DIR / "protected_media"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
