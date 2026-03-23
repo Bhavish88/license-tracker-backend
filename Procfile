@@ -1,1 +1,1 @@
-web: gunicorn tracker_project.wsgi:application
+web: gunicorn tracker_project.wsgi:application --bind 0.0.0.0:$PORT
