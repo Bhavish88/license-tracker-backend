@@ -29,7 +29,10 @@ SECRET_KEY = 'django-insecure-xy*&0kr12nro48^^c$c2lc2q)db(-nid@=w&5j6vv!v-9fb$bm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = os.environ.get(
+    'ALLOWED_HOSTS',
+    'license-tracker-backend-production.up.railway.app'
+).split(',')
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "License & Certificate Tracker API",
