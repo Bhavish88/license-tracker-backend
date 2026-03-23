@@ -1,0 +1,149 @@
+{
+  "info": {
+    "name": "License & Certificate Tracker - Basic Collection",
+    "_postman_id": "license-tracker-collection-001",
+    "description": "Basic requests: get token, upload cert/license, download cert/license. Edit base_url and token as needed.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Get Token (JWT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"userA\",\n  \"password\": \"passA\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/token/",
+          "host": ["{{base_url}}"],
+          "path": ["api","token",""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Certificate (multipart)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "My Certificate",
+              "type": "text"
+            },
+            {
+              "key": "issued_date",
+              "value": "2023-01-01",
+              "type": "text"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/certificates/",
+          "host": ["{{base_url}}"],
+          "path": ["api","certificates",""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Download Certificate (owner)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/certificates/:id/download/",
+          "host": ["{{base_url}}"],
+          "path": ["api","certificates",":id","download",""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload License (multipart)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Driving Licence",
+              "type": "text"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/licenses/",
+          "host": ["{{base_url}}"],
+          "path": ["api","licenses",""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Download License (owner)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/licenses/:id/download/",
+          "host": ["{{base_url}}"],
+          "path": ["api","licenses",":id","download",""]
+        }
+      },
+      "response": []
+    }
+  ]
+}
