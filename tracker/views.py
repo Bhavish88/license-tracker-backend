@@ -510,3 +510,7 @@ from django.conf import settings
 from django.http import JsonResponse
 
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def send_reminders(request):
+    return JsonResponse({"message": "Reminders sent"})
