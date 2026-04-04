@@ -503,3 +503,30 @@ class SettingsView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+from datetime import date
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import JsonResponse
+
+def send_reminders(request):
+    today = date.today()
+
+    certs = Certificate.objects.filter(expiry_date__isnull=False)
+    licenses = License.objects.filter(expiry_date__isnull=False)
+
+    for item in list(certs) + list(licenses):
+        days_left = item.days_until_expiry()
+
+        if days_left in [30, 15, 7]:
+            user = item.owner
+
+            send_mail(
+                "Expiry Reminder",
+                f"Your document '{getattr(item, 'title', getattr(item, 'name', 'Document'))}' will expire in {days_left} days.",
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                fail_silently=False,
+            )
+
+    return JsonResponse({"message": "Reminders sent"})

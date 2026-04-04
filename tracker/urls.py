@@ -2,6 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from .views import CertificateViewSet, CategoryViewSet, LicenseViewSet, StandardResultsSetPagination, NotificationViewSet , register_user, PasswordResetView, PasswordResetConfirmView
 from . import views, admin_views
+from .views import send_reminders
 
 router = DefaultRouter()
 router.register(r'certificates', CertificateViewSet, basename='certificate')
@@ -11,6 +12,7 @@ router.register(r'notifications', NotificationViewSet, basename='notification')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path("api/send-reminders/", send_reminders, name="send-reminders"),
     path('api/dashboard/', views.dashboard_summary, name='dashboard-summary'),
     path("api/register/", views.register_user, name="register"),
     path("api/password-reset/", PasswordResetView.as_view(), name="password-reset"),
