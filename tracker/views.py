@@ -521,7 +521,7 @@ def send_reminders(request):
     for item in list(certs) + list(licenses):
         days_left = item.days_until_expiry()
 
-        if days_left in [30, 15, 7]:
+        if days_left <= 30:
             user = item.owner
 
             send_mail(
