@@ -510,6 +510,13 @@ from django.conf import settings
 from django.http import JsonResponse
 
 
+send_mail(
+    "FORCE TEST",
+    "If you receive this, email is working",
+    settings.EMAIL_HOST_USER,
+    ["bhavishmulleshwari@gmail.com"],  # your email
+    fail_silently=False,
+)
 @api_view(["GET"])
 @permission_classes([AllowAny]) 
 def send_reminders(request):
